@@ -1,0 +1,59 @@
+config:
+  target: "https://api.todoist.com"
+  processor: ./faker.js
+  plugins:
+      faker:
+        locale: 'en'
+  phases:
+    - duration: 5  #for x seconds
+      arrivalRate: 2  #users per second
+      name: "Perf Workshop"
+  defaults:
+    headers:
+      Authorization: Bearer f1cb704b1c810d417f6332a2edfa382b05c0b5a4    #"Bearer" + TOKEN,
+      Content_type: application/json
+  variables:
+    taskName: Pamela
+    url_tasks:
+      - "/rest/v1/tasks"
+    due_string:
+      - "June 10th, 23:59"
+    due_lang:
+      - "en"
+    priority:
+      - 1
+    description:
+      - "description"
+scenarios:
+    - flow:
+      - function: generateRandomData
+      - get: #Get active tasks
+          url: "{{url_tasks}}"
+      - post: #Create a new task
+          url: "{{url_tasks}}"
+          json:
+            content: "{{taskName}}"
+            description: "{{description}}"
+            due_string: "{{due_string}}"
+            due_lang: "{{due_lang}}"
+            priority: "{{priority}}"
+          capture:
+            json: "$.id"
+            as: "id_task"
+      - log: "Task id is: {{id_task}}"
+      - get: #Get an active task
+          url: "{{url_tasks}}/{{id_task}}"
+      - think: 10
+      - post: #Update a task
+          url: "{{url_tasks}}/{{id_task}}"
+          json:
+              content: "{{taskName}}_updated"
+      - think: 10
+      - post: #Complete the task
+          url: "{{url_tasks}}/{{id_task}}/close"
+      - think: 10
+      - post: #Reopen a task
+          url: "{{url_tasks}}/{{id_task}}/reopen"
+      - think: 10
+      - delete:
+          url: "{{url_tasks}}/{{id_task}}"

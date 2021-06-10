@@ -1,0 +1,110 @@
+providerMocks:
+  - url: /accountsdetails?ddatpassthrough=false
+    # mockRequest:
+    #   headers:
+    #     Content-Type: application/x-www-form-urlencoded
+    #     Schwab-RRBus-PilotRollout: Region=TUP
+
+    mockResponse:
+      statusCode: 200
+      headers:
+        Content-Type: application/json
+        Accept: application/json
+      body: |-
+        {
+          "accounts": [
+              {
+                  "availableBalance": 150000.49,
+                  "currentBalance": 150000.49,
+                  "balanceAsOf": "2020-12-01T23:29:31.179Z",
+                  "dailyChange": 0.49,
+                  "margin": false,
+                  "marginBalance": 0.0,
+                  "percentageChange": 0.0,
+                  "shortBalance": 0.0,
+                  "transactionsIncluded": false,
+                  "balanceType": "ASSET",
+                  "paymentFrequency": "MONTHLY",
+                  "nextPaymentDate": "2020-12-01T00:00:00.000Z",
+                  "nextPaymentAmount":"100.00",
+                  "principalBalance": 150000.49,
+                  "loanTerm": 30,
+                  "originatingDate":"2020-12-01T00:00:00.000Z",
+                  "currency": {
+                      "currencyCode": "USD"
+                  },
+                  "lastActivityDate": "2020-12-01T00:00:00.000Z",
+                  "nickname": "Nickname Loan",
+                  "accountId": "4D218C6E0B427C90E7288E4539C511689D5EBF6EB40B363BA7152AD452EEE6BA",
+                  "accountType": "MORTGAGE",
+                  "description": "Loan Test",
+                  "displayName": "Loan Test ...001",
+                  "maturityDate": "2020-12-01T23:29:31Z",
+                  "status": "OPEN",
+                  "accountDescriptorObjectType": "LoanAccount"
+              }
+            ],
+            "totalPages": 1,
+            "page": 1
+        }
+
+# The executionParams node denotes the various input that will go to WSI and DCS
+# for this test acquire flow
+executionParams:
+  unboundVariables:
+    intuit_tid: "schwab-test-loan-acct-tid"
+  includeRawData: false
+  providerId: 76fe56c1-ff0e-4fed-9031-9761bad79c1c
+  channelId: ef60dc34-3210-47ab-93a1-07ee0c25e5d8
+  maskingPattern:
+    76fe56c1-ff0e-4fed-9031-9761bad79c1c: "(?<=Authorization: )(.*?)(?=\\S{4}\\[)"
+  # entities specifies the entities which are expected to be acquired in the acquire flow
+  entities:
+    - entityName: ACCOUNT
+      # dataLevel:
+      #   - transactions
+
+  configProps:
+    providerConfiguration:
+      76fe56c1-ff0e-4fed-9031-9761bad79c1c.dateFormat: yyyy-MM-dd
+      76fe56c1-ff0e-4fed-9031-9761bad79c1c.timeZone: "UTC"
+      76fe56c1-ff0e-4fed-9031-9761bad79c1c.clientId: fxUDkFOVvSpDqcYrGUYWeMArS4Mj1Axw
+
+expectedResponse:
+  statusCode: 200
+  body: |-
+    {
+      "providerResponses": [
+        {
+          "providerId": "76fe56c1-ff0e-4fed-9031-9761bad79c1c",
+          "accounts": [
+            {
+              "accountCategory":"LOAN",
+              "transactionsIncluded": false,
+              "currentBalance": 150000.49,
+              "accountType": "LOAN",
+              "displayName": "Loan Test ...001",
+              "description": "Loan Test",
+              "providerAccountType": "LOAN",
+              "nickName": "Nickname Loan",
+              "statusMessage": "SUCCESS",
+              "balanceType": "ASSET",
+              "paymentFrequency": "MONTHLY",
+              "paymentDueDate": "2020-12-01T00:00:00Z",
+              "paymentMinimumAmount":"100.00",
+              "principalBalance": 150000.49,
+              "lastActivityDate": "2020-12-01T00:00:00Z",
+              "accountNumberMasked": "XXXXX001",
+              "loanTermType": 30,
+              "initialLoanDate":"2020-12-01T12:00:00Z",
+              "providerAccountId": "4D218C6E0B427C90E7288E4539C511689D5EBF6EB40B363BA7152AD452EEE6BA",
+              "balanceAsOf": "2020-12-01T23:29:31Z",
+              "originalMaturityDate": "2020-12-01T23:29:31Z",
+              "currencyCode": "USD",
+              "status": "OPEN",
+              "statusCode": "0"
+            }
+          ]
+        }
+      ]
+    }

@@ -1,0 +1,26 @@
+{
+  "name": "Perf-workshop",
+  "version": "1.0.0",
+  "description": "Performance Session for Wizeline Fullstack QA Certification",
+  "main": "index.js",
+  "scripts": {
+    "test": "artillery run Todoist/scenarios.yml",
+    "test:report": "node faker.js && artillery report --output results/report.html results/report.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pamflores/Perf_0603.git"
+  },
+  "keywords": [],
+  "author": "Pamela Flores",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pamflores/Perf_0603/issues"
+  },
+  "homepage": "https://github.com/pamflores/Perf_0603#readme",
+  "devDependencies": {
+    "artillery": "^1.7.2",
+    "artillery-plugin-faker": "^3.0.0",
+    "Faker": "^0.7.2"
+  }
+}
