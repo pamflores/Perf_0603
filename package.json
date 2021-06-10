@@ -21,6 +21,6 @@
   "devDependencies": {
     "artillery": "^1.7.2",
     "artillery-plugin-faker": "^3.0.0",
-    "Faker": "^0.7.2"
+    "faker": "^5.5.3"
   }
 }

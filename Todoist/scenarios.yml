@@ -1,6 +1,6 @@
 config:
   target: "https://api.todoist.com"
-  processor: ./faker.js
+
   plugins:
       faker:
         locale: 'en'
@@ -12,6 +12,7 @@ config:
     headers:
       Authorization: Bearer f1cb704b1c810d417f6332a2edfa382b05c0b5a4    #"Bearer" + TOKEN,
       Content_type: application/json
+  processor: ./faker.js
   variables:
     taskName: Pamela
     url_tasks:
@@ -26,7 +27,7 @@ config:
       - "description"
 scenarios:
     - flow:
-      - function: generateRandomData
+      - function: "generateRandomData"
       - get: #Get active tasks
           url: "{{url_tasks}}"
       - post: #Create a new task

@@ -19,7 +19,7 @@
 
 ``npm install --save-dev artillery``
 
-``npm install -g artillery-plugin-faker`
+``npm install --save-dev faker``
 
 ###Execution
 
