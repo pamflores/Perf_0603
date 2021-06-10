@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "artillery run Todoist/scenarios.yml",
-    "test:report": "node faker.js && artillery report --output results/report.html results/report.json"
+    "test:report": "artillery run --output ./results/result.json Todoist/scenarios.yml && artillery report --output ./results/result.html ./results/result.json"
   },
   "repository": {
     "type": "git",
