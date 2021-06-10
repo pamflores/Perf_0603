@@ -5,10 +5,8 @@
 ```
   ├── results
   ├── Todoist
-  │      └──scenarios.js
-  ├── basic.js
-  ├── faker.js
-  └── .env
+  │      └──scenarios.yml
+  │      └──faker.js  
   ```
 
 ##Installation
@@ -21,8 +19,7 @@
 
 ``npm install --save-dev artillery``
 
-``npm install --save-dev artillery-plugin-faker``
-
+``npm install -g artillery-plugin-faker`
 
 ###Execution
 
@@ -30,7 +27,9 @@ Execute in the terminal the following commands
 
 npm run + command-below
 
-``test:run`` to execute the artillery test and report
+``test`` to execute artillery test
+``test:report`` to execute artillery test with reports
+
 
 ###References
 
